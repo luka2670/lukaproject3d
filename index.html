@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LukaProject3D – praktyczne wydruki 3D</title>
+  <meta name="description" content="LukaProject3D – praktyczne wydruki 3D do domu i na prezent: organizery, uchwyty, klipsy, ozdoby i więcej. Zamówienia przez e-mail lub social media." />
+  <meta name="theme-color" content="#0b0f19" />
+
+  <!-- Open Graph (podgląd linku w social media) -->
+  <meta property="og:title" content="LukaProject3D – praktyczne wydruki 3D" />
+  <meta property="og:description" content="Organizery, uchwyty, klipsy, ozdoby i akcesoria drukowane w 3D." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/og.jpg" />
+
+  <style>
+    :root{
+      --bg:#0b0f19;
+      --text:#e9eefc;
+      --muted:#a9b4d0;
+      --brand:#7c5cff;
+      --line:rgba(255,255,255,.10);
+      --shadow: 0 18px 50px rgba(0,0,0,.45);
+      --radius: 18px;
+      --max: 1120px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(124,92,255,.35), transparent 60%),
+        radial-gradient(1000px 500px at 110% 20%, rgba(34,197,94,.18), transparent 60%),
+        var(--bg);
+      color:var(--text);
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding: 0 18px;}
+
+    /* Header */
+    header{position:sticky; top:0; z-index:50; backdrop-filter: blur(10px); background: rgba(11,15,25,.55); border-bottom:1px solid var(--line);}    
+    .nav{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:14px 0;}
+    .brand{display:flex; gap:10px; align-items:center; font-weight:900; letter-spacing:.2px;}
+    .logoImg{width:34px;height:34px;border-radius:12px;object-fit:cover;border:1px solid rgba(255,255,255,.12);background: rgba(255,255,255,.04);}
+    .menu{display:flex; gap:16px; align-items:center; flex-wrap:wrap; justify-content:flex-end;}
+    .menu a{color:var(--muted); font-weight:700; font-size:14px; padding:8px 10px; border-radius:10px;}
+    .menu a:hover{color:var(--text); background: rgba(255,255,255,.06);}
+
+    .cta{display:inline-flex; align-items:center; gap:10px; background:linear-gradient(135deg,var(--brand),#ff4fd8); color:white; font-weight:900; padding:10px 14px; border-radius:999px; box-shadow: 0 14px 30px rgba(124,92,255,.30); border:0; cursor:pointer;}
+    .cta:hover{filter:brightness(1.03)}
+    .ghost{display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:999px; border:1px solid var(--line); background: rgba(255,255,255,.04); color: var(--text); font-weight:900; cursor:pointer;}
+    .ghost:hover{background: rgba(255,255,255,.06);}
+
+    /* Hero */
+    .hero{padding:44px 0 18px;}
+    .heroGrid{display:grid; grid-template-columns: 1.1fr .9fr; gap:22px; align-items:stretch;}
+    .h1{font-size: clamp(30px, 3.6vw, 50px); line-height: 1.05; margin: 0 0 12px; letter-spacing: -0.6px;}
+    .lead{margin:0 0 18px; color: var(--muted); font-size: 16.5px; line-height: 1.55;}
+    .pillRow{display:flex; gap:10px; flex-wrap:wrap; margin: 14px 0 22px;}
+    .pill{padding:8px 10px; border:1px solid var(--line); background: rgba(255,255,255,.04); border-radius:999px; font-weight:800; color: var(--muted); font-size: 13px;}
+
+    .card{border:1px solid var(--line); background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03)); border-radius: var(--radius); box-shadow: var(--shadow);}
+    .heroCard{padding:18px; display:grid; grid-template-rows:auto 1fr; gap:12px;}
+    .heroCardTop{display:flex; align-items:center; justify-content:space-between; gap:10px;}
+    .badge{display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border-radius:999px; background: rgba(124,92,255,.14); border:1px solid rgba(124,92,255,.30); color: #e9e5ff; font-weight:900; font-size:12.5px;}
+    .tag{font-size:12px; font-weight:900; color:#e9eefc; background: rgba(255,255,255,.06); border:1px solid var(--line); padding:6px 10px; border-radius:999px;}
+
+    .heroShot{border-radius:14px; border:1px solid var(--line); background: rgba(255,255,255,.03); min-height: 260px; overflow:hidden; position:relative;}
+    .heroShot video{width:100%; height:100%; display:block; object-fit:cover; background: rgba(0,0,0,.25);}
+    .videoFallback{position:absolute; inset:0; display:grid; place-items:center; padding:14px; color: var(--muted); text-align:center; font-weight:800; pointer-events:none;}
+
+    /* Sections */
+    section{padding: 34px 0;}
+    .sectionTitle{display:flex; align-items:flex-end; justify-content:space-between; gap:14px; margin:0 0 14px;}
+    h2{margin:0; font-size: 22px; letter-spacing:-.2px;}
+    .sub{margin:0; color: var(--muted); font-weight:750;}
+
+    /* Product grid */
+    .grid{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px;}
+    .p{padding:16px;}
+    .pTop{display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom: 12px;}
+    .pName{font-weight:950; margin: 0 0 6px; letter-spacing:-.1px;}
+    .pDesc{margin:0; color: var(--muted); font-size: 14px; line-height: 1.45;}
+
+    .pCover{width:100%; height: 180px; border-radius: 14px; border:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.03); overflow:hidden; margin-bottom: 10px; cursor: zoom-in;}
+    .pCover img{width:100%; height:100%; object-fit:cover; display:block; transform: scale(1); transition: transform .18s ease;}
+    .pCover:hover img{transform: scale(1.04)}
+
+    .thumbs{display:grid; grid-template-columns: repeat(4, 1fr); gap:8px;}
+    .thumb{border-radius:12px; overflow:hidden; border:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.03); aspect-ratio: 1 / 1; cursor:pointer;}
+    .thumb img{width:100%; height:100%; object-fit:cover; display:block; transform: scale(1); transition: transform .18s ease;}
+    .thumb:hover img{transform: scale(1.06)}
+    .thumb.isActive{outline:2px solid rgba(124,92,255,.65); outline-offset:2px;}
+
+    .pMeta{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;}
+    .chip{font-size:12px; color: var(--muted); border:1px dashed rgba(255,255,255,.18); padding:6px 8px; border-radius:999px; font-weight:800;}
+    .pBtn{margin-top:14px; width:100%; display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:10px 12px; border-radius:12px; border:1px solid var(--line); background: rgba(255,255,255,.05); color: var(--text); font-weight:950; cursor:pointer;}
+    .pBtn:hover{background: rgba(255,255,255,.07)}
+
+    /* Steps */
+    .steps{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px;}
+    .step{padding:16px;}
+    .stepNum{width:30px;height:30px;border-radius:10px; display:grid; place-items:center; font-weight:950; background: rgba(124,92,255,.16); border:1px solid rgba(124,92,255,.30);}
+    .step h3{margin:10px 0 6px; font-size:15px;}
+    .step p{margin:0; color: var(--muted); font-size: 14px; line-height: 1.55;}
+
+    /* FAQ */
+    details{border:1px solid var(--line); border-radius: 14px; padding: 12px 14px; background: rgba(255,255,255,.03);}
+    details + details{margin-top:10px}
+    summary{cursor:pointer; font-weight:950; color: var(--text);}
+    details p{color: var(--muted); margin: 8px 0 0; line-height: 1.55;}
+
+    /* Lightbox (pełny ekran) */
+    .lightbox{position:fixed; inset:0; z-index:999; display:none; background: rgba(0,0,0,.88);} 
+    .lightbox.open{display:block;}
+    .lbX{
+      position:fixed;
+      top:16px; right:16px;
+      background: rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.18);
+      color: var(--text);
+      width:44px; height:44px;
+      border-radius:14px;
+      cursor:pointer;
+      font-weight:950;
+      backdrop-filter: blur(8px);
+    }
+    .lbX:hover{background: rgba(255,255,255,.14)}
+    .lbImgWrap{position:fixed; inset:0; display:grid; place-items:center; padding:22px;}
+    .lbImgWrap img{max-width: 96vw; max-height: 92vh; width:auto; height:auto; object-fit:contain; display:block;}
+
+    /* Hover powiększenie “wyskakuje z ramki” */
+    .card.p{position:relative;}
+    .card.p:hover{z-index:20;}
+    .pCover{transition: transform .18s ease, box-shadow .18s ease;}
+    .pCover{transform-origin:center; position:relative;}
+    .pCover::after{
+      content:"";
+      position:absolute; inset:0;
+      background: radial-gradient(700px 260px at 35% 20%, rgba(124,92,255,.18), transparent 60%);
+      opacity:0;
+      transition: opacity .18s ease;
+      pointer-events:none;
+    }
+    .pCover:hover{transform: translateY(-6px) scale(1.07); box-shadow: 0 22px 55px rgba(0,0,0,.60);} 
+    .pCover:hover::after{opacity:1;} 
+
+    /* Footer */
+    footer{padding: 26px 0 40px; border-top:1px solid var(--line); color: var(--muted);} 
+    .foot{display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; align-items:center;}
+    .social{display:flex; gap:10px; flex-wrap:wrap;}
+    .social a{border:1px solid var(--line); background: rgba(255,255,255,.04); padding:9px 12px; border-radius:999px; font-weight:900; color: var(--text);} 
+    .social a:hover{background: rgba(255,255,255,.06)}
+
+    @media (max-width: 920px){
+      .heroGrid{grid-template-columns: 1fr;}
+      .grid{grid-template-columns: repeat(2, 1fr);}
+      .steps{grid-template-columns: 1fr;}
+      .pCover{height: 210px;}
+    }
+    @media (max-width: 520px){
+      .menu{display:none}
+      .grid{grid-template-columns: 1fr;}
+      .pCover{height: 220px;}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="LukaProject3D">
+      <img class="logoImg" src="assets/logo.png" alt="LukaProject3D logo">
+      <span>LukaProject3D</span>
+    </a>
+
+    <nav class="menu" aria-label="Nawigacja">
+      <a href="#produkty">Produkty</a>
+      <a href="#jak">Jak zamówić</a>
+      <a href="#faq">FAQ</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+
+    <button class="cta" onclick="scrollToId('kontakt')">Zamów / wycena</button>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <div class="heroGrid">
+      <div>
+        <h1 class="h1">Praktyczne wydruki 3D do domu, biura i na prezent.</h1>
+        <p class="lead">Tworzę funkcjonalne akcesoria drukowane w 3D – od organizerów po ozdoby okolicznościowe. Napisz, czego potrzebujesz, a ja przygotuję projekt i wydruk.</p>
+
+        <div class="pillRow">
+          <span class="pill">Druk 3D • PLA</span>
+          <span class="pill">Kolory: biały / czarny / brązowy / czerwony</span>
+          <span class="pill">Personalizacja (napisy)</span>
+          <span class="pill">Dom + firmowe zamówienia</span>
+        </div>
+
+        <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+          <button class="cta" onclick="scrollToId('produkty')">Zobacz produkty</button>
+          <button class="ghost" onclick="scrollToId('jak')">Jak zamówić</button>
+        </div>
+
+        <p class="lead" style="margin-top:14px; font-size:14px;">📩 Najszybciej: wiadomość na Instagramie lub e-mail. Realizuję też krótkie serie dla firm.</p>
+      </div>
+
+      <div class="card heroCard">
+        <div class="heroCardTop">
+          <span class="badge">Od pomysłu do realizacji</span>
+          <span class="tag">Made in PL</span>
+        </div>
+
+        <div class="heroShot">
+          <!-- Wstaw tutaj swój film: assets/hero.mp4 -->
+          <video controls playsinline preload="metadata" poster="assets/hero-poster.jpg">
+            <source src="assets/hero.mp4" type="video/mp4" />
+            Twoja przeglądarka nie obsługuje wideo.
+          </video>
+          <div class="videoFallback">
+            Dodaj plik <code>assets/hero.mp4</code><br/>
+            (opcjonalnie miniaturkę <code>assets/hero-poster.jpg</code>)
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="produkty">
+    <div class="wrap">
+      <div class="sectionTitle">
+        <div>
+          <h2>Produkty</h2>
+          <p class="sub">11 kategorii – kliknij miniatury, żeby zmienić zdjęcie. Kliknij zdjęcie, żeby powiększyć.</p>
+        </div>
+        <span class="tag">Zdjęcia w folderze assets</span>
+      </div>
+
+      <div class="grid">
+        <!-- 1) Organizery (4 zdjęcia) -->
+        <article class="card p">
+          <div class="pTop">
+            <div>
+              <p class="pName">Organizery</p>
+              <p class="pDesc">Praktyczne organizery do szuflad i na biurko. Możliwe różne rozmiary i układy.</p>
+            </div>
+            <span class="tag">4 zdjęcia</span>
+          </div>
+          <div class="pCover" data-title="Organizery"><img src="assets/organizers-1.jpg" alt="Organizery – zdjęcie" loading="lazy"></div>
+          <div class="thumbs">
+            <div class="thumb isActive" data-target="assets/organizers-1.jpg"><img src="assets/organizers-1.jpg" alt="Organizery – miniatura 1" loading="lazy"></div>
+            <div class="thumb" data-target="assets/organizers-2.jpg"><img src="assets/organizers-2.jpg" alt="Organizery – miniatura 2" loading="lazy"></div>
+            <div class="thumb" data-target="assets/organizers-3.jpg"><img src="assets/organizers-3.jpg" alt="Organizery – miniatura 3" loading="lazy"></div>
+            <div class="thumb" data-target="assets/organizers-4.jpg"><img src="assets/organizers-4.jpg" alt="Organizery – miniatura 4" loading="lazy"></div>
+          </div>
+          <div class="pMeta"><span class="chip">modułowe</span><span class="chip">różne rozmiary</span><span class="chip">PLA</span></div>
+          <button class="pBtn" onclick="scrollToId('kontakt')">Zapytaj o wycenę</button>
+        </article>
+
+        <!-- 2) Magnetyczny pojemnik na długopis (1 zdjęcie) -->
+        <article class="card p">
+          <div class="pTop">
+            <div>
+              <p class="pName">Magnetyczny pojemnik na długopis</p>
+              <p class="pDesc">Pojemnik na długopis/marker – do tablicy, lodówki lub metalowej półki (z magnesem).</p>
+            </div>
+            <span class="tag">1 zdjęcie</span>
+          </div>
+          <div class="pCover" data-title="Magnetyczny pojemnik na długopis"><img src="assets/pen-holder-1.jpg" alt="Pojemnik na długopis – zdjęcie" loading="lazy"></div>
+          <div class="pMeta"><span class="chip">magnes</span><span class="chip">biuro</span><span class="chip">warsztat</span></div>
+          <button class="pBtn" onclick="scrollToId('kontakt')">Zapytaj o wycenę</button>
+        </article>
+
+        <!-- 3) Wieszak na słuchawki (2 zdjęcia) -->
+        <article class="card p">
+          <div class="pTop">
+            <div>
+              <p class="pName">Wieszak na słuchawki</p>
+              <p class="pDesc">Uchwyt na słuchawki do biurka lub ściany – porządek na stanowisku.</p>
+            </div>
+            <span class="tag">2 zdjęcia</span>
+          </div>
+          <div class="pCover" data-title="Wieszak na słuchawki"><img src="assets/headphone-hook-1.jpg" alt="Wieszak na słuchawki – zdjęcie" loading="lazy"></div>
+          <div class="thumbs">
+            <div class="thumb isActive" data-target="assets/headphone-hook-1.jpg"><img src="assets/headphone-hook-1.jpg" alt="Wieszak – miniatura 1" loading="lazy"></div>
+            <div class="thumb" data-target="assets/headphone-hook-2.jpg"><img src="assets/headphone-hook-2.jpg" alt="Wieszak – miniatura 2" loading="lazy"></div>
+            <div class="thumb" style="opacity:.25"></div>
+            <div class="thumb" style="opacity:.25"></div>
+          </div>
+          <div class="pMeta"><span class="chip">biurko</span><span class="chip">setup</span><span class="chip">PLA</span></div>
+          <button class="pBtn" onclick="scrollToId('kontakt')">Zapytaj o wycenę</button>
+        </article>
+
+        <!-- 4) Klipsy do opakowań (1 zdjęcie) -->
+        <article class="card p">
+          <div class="pTop">
+            <div>
+              <p class="pName">Klipsy do opakowań</p>
+              <p class="pDesc">Klipsy do zamykania torebek (kawa, karma, mrożonki). Prosto, szybko i praktycznie.</p>
+            </div>
+            <span class="tag">1 zdjęcie</span>
+          </div>
+          <div class="pCover" data-title="Klipsy do opakowań"><img src="assets/bag-clips-1.jpg" alt="Klipsy do opakowań – zdjęcie" loading="lazy"></div>
+          <div class="pMeta"><span class="chip">kuchnia</span><span class="chip">pakiety</span><span class="chip">PLA</span></div>
+          <button class="pBtn" onclick="scrollToId('kontakt')">Zapytaj o wycenę</button>
+        </article>
+
+        <!-- 5) Podkładki dystansowe U (1 zdjęcie) -->
+        <article class="card p">
+          <div class="pTop">
+            <div>
+              <p class="pName">Podkładki dystansowe U</p>
+              <p class="pDesc">Zestawy podkładek U: grubości 1/2/3/5 mm. Warianty szerokości pod śrubę: U=8 mm lub U=10 mm.</p>
+            </div>
+            <span class="tag">1 zdjęcie</span>
+          </div>
+          <div class="pCover" data-title="Podkładki dystansowe U"><img src="assets/u-shims-1.jpg" alt="Podkładki dystansowe U – zdjęcie" loading="lazy"></div>
+          <div class="pMeta"><span class="chip">1/2/3/5 mm</span><span class="chip">U=8 mm</span><span class="chip">U=10 mm</span></div>
+          <button class="pBtn" onclick="scrollToId('kontakt')">Zapytaj o wycenę</button>
+        </article>
+
+        <!-- 6) Mydelniczka (1 zdjęcie) -->
+        <article class="card p">
+          <div class="pTop">
+            <div>
+              <p class="pName">Mydelniczka</p>
+              <p class="pDesc">Mydelniczka do łazienki – prosta forma, łatwe czyszczenie, estetyczny minimalizm.</p>
+            </div>
+            <span class="tag">1 zdjęcie</span>
+          </div>
+          <div class="pCover" data-title="Mydelniczka"><img src="assets/soap-dish-1.jpg" alt="Mydelniczka – zdjęcie" loading="lazy"></div>
+          <div class="pMeta"><span class="chip">łazienka</span><span class="chip">dom</span><span class="chip">PLA</span></div>
+          <button class="pBtn" onclick="scrollToId('kontakt')">Zapytaj o wycenę</button>
+        </article>
+
+        <!-- 7) Ozdoby świąteczne i okazjonalne (3 zdjęcia) -->
+        <article class="card p">
+          <div class="pTop">
+            <div>
+              <p class="pName">Ozdoby świąteczne i okazjonalne</p>
+              <p class="pDesc">Dekoracje na święta i okazje – idealne na prezent i do domu.</p>
+            </div>
+            <span class="tag">3 zdjęcia</span>
+          </div>
+          <div class="pCover" data-title="Ozdoby świąteczne"><img src="assets/seasonal-1.jpg" alt="Ozdoby – zdjęcie" loading="lazy"></div>
+          <div class="thumbs">
+            <div class="thumb isActive" data-target="assets/seasonal-1.jpg"><img src="assets/seasonal-1.jpg" alt="Ozdoby – miniatura 1" loading="lazy"></div>
+            <div class="thumb" data-target="assets/seasonal-2.jpg"><img src="assets/seasonal-2.jpg" alt="Ozdoby – miniatura 2" loading="lazy"></div>
+            <div class="thumb" data-target="assets/seasonal-3.jpg"><img src="assets/seasonal-3.jpg" alt="Ozdoby – miniatura 3" loading="lazy"></div>
+            <div class="thumb" style="opacity:.25"></div>
+          </div>
+          <div class="pMeta"><span class="chip">prezent</span><span class="chip">okazje</span><span class="chip">personalizacja</span></div>
+          <button class="pBtn" onclick="scrollToId('kontakt')">Zapytaj o wycenę</button>
+        </article>
+
+        <!-- 8) Okulary meme (4 zdjęcia) -->
+        <article class="card p">
+          <div class="pTop">
+            <div>
+              <p class="pName">Okulary meme</p>
+              <p class="pDesc">Zabawne okulary bez szkieł – do zdjęć, imprez, reelsów i eventów.</p>
+            </div>
+            <span class="tag">4 zdjęcia</span>
+          </div>
+          <div class="pCover" data-title="Okulary meme"><img src="assets/meme-glasses-1.jpg" alt="Okulary meme – zdjęcie" loading="lazy"></div>
+          <div class="thumbs">
+            <div class="thumb isActive" data-target="assets/meme-glasses-1.jpg"><img src="assets/meme-glasses-1.jpg" alt="Okulary – miniatura 1" loading="lazy"></div>
+            <div class="thumb" data-target="assets/meme-glasses-2.jpg"><img src="assets/meme-glasses-2.jpg" alt="Okulary – miniatura 2" loading="lazy"></div>
+            <div class="thumb" data-target="assets/meme-glasses-3.jpg"><img src="assets/meme-glasses-3.jpg" alt="Okulary – miniatura 3" loading="lazy"></div>
+            <div class="thumb" data-target="assets/meme-glasses-4.jpg"><img src="assets/meme-glasses-4.jpg" alt="Okulary – miniatura 4" loading="lazy"></div>
+          </div>
+          <div class="pMeta"><span class="chip">event</span><span class="chip">foto</span><span class="chip">śmieszne</span></div>
+          <button class="pBtn" onclick="scrollToId('kontakt')">Zapytaj o wycenę</button>
+        </article>
+
+        <!-- 9) Osłonki na doniczki (2 zdjęcia) -->
+        <article class="card p">
+          <div class="pTop">
+            <div>
+              <p class="pName">Osłonki na doniczki</p>
+              <p class="pDesc">Osłonki do roślin – minimalistyczne, do wnętrz. Różne rozmiary i wzory.</p>
+            </div>
+            <span class="tag">2 zdjęcia</span>
+          </div>
+          <div class="pCover" data-title="Osłonki na doniczki"><img src="assets/planter-covers-1.jpg" alt="Osłonki – zdjęcie" loading="lazy"></div>
+          <div class="thumbs">
+            <div class="thumb isActive" data-target="assets/planter-covers-1.jpg"><img src="assets/planter-covers-1.jpg" alt="Osłonki – miniatura 1" loading="lazy"></div>
+            <div class="thumb" data-target="assets/planter-covers-2.jpg"><img src="assets/planter-covers-2.jpg" alt="Osłonki – miniatura 2" loading="lazy"></div>
+            <div class="thumb" style="opacity:.25"></div>
+            <div class="thumb" style="opacity:.25"></div>
+          </div>
+          <div class="pMeta"><span class="chip">wnętrza</span><span class="chip">rośliny</span><span class="chip">PLA</span></div>
+          <button class="pBtn" onclick="scrollToId('kontakt')">Zapytaj o wycenę</button>
+        </article>
+
+        <!-- 10) Obrazy 3D (portret pupila) (2 zdjęcia) -->
+        <article class="card p">
+          <div class="pTop">
+            <div>
+              <p class="pName">Obrazy 3D (portret pupila)</p>
+              <p class="pDesc">Obrazy 3D (relief) na podstawie zdjęcia Twojego pupila – szkic/portret drukowany w 3D.</p>
+            </div>
+            <span class="tag">2 zdjęcia</span>
+          </div>
+          <div class="pCover" data-title="Obrazy 3D (portret pupila)"><img src="assets/3d-art-1.jpg" alt="Obrazy 3D – zdjęcie" loading="lazy"></div>
+          <div class="thumbs">
+            <div class="thumb isActive" data-target="assets/3d-art-1.jpg"><img src="assets/3d-art-1.jpg" alt="Obrazy 3D – miniatura 1" loading="lazy"></div>
+            <div class="thumb" data-target="assets/3d-art-2.jpg"><img src="assets/3d-art-2.jpg" alt="Obrazy 3D – miniatura 2" loading="lazy"></div>
+            <div class="thumb" style="opacity:.25"></div>
+            <div class="thumb" style="opacity:.25"></div>
+          </div>
+          <div class="pMeta"><span class="chip">ze zdjęcia</span><span class="chip">pupil</span><span class="chip">prezent</span></div>
+          <button class="pBtn" onclick="scrollToId('kontakt')">Zapytaj o wycenę</button>
+        </article>
+
+        <!-- 11) Litery alfabetu (1 zdjęcie) -->
+        <article class="card p">
+          <div class="pTop">
+            <div>
+              <p class="pName">Litery alfabetu</p>
+              <p class="pDesc">Litery i napisy 3D – dekoracje, imiona, napisy na półkę lub ścianę. Kolory: biały, czarny, brązowy, czerwony.</p>
+            </div>
+            <span class="tag">1 zdjęcie</span>
+          </div>
+          <div class="pCover" data-title="Litery alfabetu"><img src="assets/letters-1.jpg" alt="Litery alfabetu – zdjęcie" loading="lazy"></div>
+          <div class="pMeta"><span class="chip">napisy</span><span class="chip">personalizacja</span><span class="chip">kolory</span></div>
+          <button class="pBtn" onclick="scrollToId('kontakt')">Zapytaj o wycenę</button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="jak">
+    <div class="wrap">
+      <div class="sectionTitle">
+        <div>
+          <h2>Jak zamówić</h2>
+          <p class="sub">3 kroki: wiadomość → wycena → druk i wysyłka.</p>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="card step">
+          <div class="stepNum">1</div>
+          <h3>Wyślij wiadomość</h3>
+          <p>Napisz co chcesz zamówić (lub podeślij zdjęcie) + podaj kolor i ilość. Jeśli to zamówienie „na wymiar”, dołącz 1–2 wymiary.</p>
+        </div>
+        <div class="card step">
+          <div class="stepNum">2</div>
+          <h3>Wycena i potwierdzenie</h3>
+          <p>Dostajesz cenę i propozycję wariantów. Przy personalizacji ustalamy tekst/napis oraz rozmiar.</p>
+        </div>
+        <div class="card step">
+          <div class="stepNum">3</div>
+          <h3>Druk i wysyłka</h3>
+          <p>Drukuję w PLA i wysyłam bezpiecznie zapakowane. Dla większych zamówień możliwe kompletowanie zestawów.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="sectionTitle">
+        <div>
+          <h2>FAQ</h2>
+          <p class="sub">Najczęstsze pytania.</p>
+        </div>
+      </div>
+      <details open>
+        <summary>Z jakiego materiału drukujesz?</summary>
+        <p>Głównie z PLA (biopolimer na bazie roślinnej) – świetny do zastosowań domowych i dekoracyjnych. Jeśli potrzebujesz większej odporności, napisz – dobierzemy materiał.</p>
+      </details>
+      <details>
+        <summary>Jakie są dostępne kolory?</summary>
+        <p>Biały, czarny, brązowy i czerwony (w zależności od dostępności filamentu). Jeśli potrzebujesz konkretnego odcienia – napisz.</p>
+      </details>
+      <details>
+        <summary>Czy robisz personalizację?</summary>
+        <p>Tak – napisy, oznaczenia, proste logotypy. Najczęściej w formie wciętego tekstu (ładnie wygląda w jednolitym kolorze).</p>
+      </details>
+      <details>
+        <summary>Bezpieczeństwo i użytkowanie</summary>
+        <p>Produkty są przeznaczone do zastosowań domowych/DIY i dekoracyjnych. Stosuj zgodnie z przeznaczeniem, nie używaj w miejscach o wysokiej temperaturze oraz w zastosowaniach krytycznych dla bezpieczeństwa. Produkt nie jest zabawką – trzymać z dala od dzieci.</p>
+      </details>
+    </div>
+  </section>
+
+  <section id="kontakt">
+    <div class="wrap">
+      <div class="sectionTitle">
+        <div>
+          <h2>Kontakt i zamówienia</h2>
+          <p class="sub">Najszybciej: Instagram / Facebook lub e-mail.</p>
+        </div>
+        <span class="tag">Odpowiadam w 24h</span>
+      </div>
+
+      <div class="grid">
+        <div class="card p">
+          <p class="pName">Napisz na social media</p>
+          <p class="pDesc">Jeśli masz zdjęcie/problem do rozwiązania – wyślij wiadomość. Szybko odpiszę z propozycją.</p>
+          <div class="pMeta"><span class="chip">Instagram</span><span class="chip">Facebook</span></div>
+          <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="cta" href="https://www.instagram.com/lukaproject3d/" target="_blank" rel="noopener">Instagram</a>
+            <a class="ghost" href="https://www.facebook.com/people/Lukaproject3d/61583206063400/" target="_blank" rel="noopener">Facebook</a>
+          </div>
+        </div>
+
+        <div class="card p">
+          <p class="pName">Formularz (szybkie zapytanie)</p>
+          <p class="pDesc">Wypełnij krótko: co potrzebujesz + kolor + ilość. Otworzy się Twoja aplikacja e-mail z gotową wiadomością.</p>
+          <form onsubmit="return sendMail(event)" style="margin-top:12px; display:grid; gap:10px;">
+            <input id="name" required placeholder="Imię" style="padding:12px 12px; border-radius:12px; border:1px solid var(--line); background: rgba(255,255,255,.04); color: var(--text);" />
+            <input id="topic" required placeholder="Produkt / temat (np. organizery / litery / portret pupila)" style="padding:12px 12px; border-radius:12px; border:1px solid var(--line); background: rgba(255,255,255,.04); color: var(--text);" />
+            <textarea id="msg" required rows="4" placeholder="Wiadomość (wymiary, ilość, kolor: biały/czarny/brązowy/czerwony)" style="padding:12px 12px; border-radius:12px; border:1px solid var(--line); background: rgba(255,255,255,.04); color: var(--text);"></textarea>
+            <button class="cta" type="submit">Wyślij zapytanie</button>
+            <p class="pDesc" style="margin:0; font-size:12px;">Jeśli wolisz, napisz na Instagramie/Facebooku.</p>
+          </form>
+        </div>
+
+        <div class="card p">
+          <p class="pName">Dostawa</p>
+          <p class="pDesc">Małe produkty pakuję bezpiecznie. Przy większych zamówieniach kompletuję zestawy i opisuję elementy.</p>
+          <div class="pMeta"><span class="chip">paczkomat / kurier</span><span class="chip">zestawy</span><span class="chip">B2B</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <img class="logoImg" src="assets/logo.png" alt="LukaProject3D logo">
+        <strong style="color:var(--text)">LukaProject3D</strong>
+      </div>
+      <div style="margin-top:6px; font-size:13px;">© <span id="y"></span> • Druk 3D w Polsce • Zamówienia: <a href="mailto:lukaproject3d@gmail.com" style="text-decoration:underline; text-underline-offset:3px;">lukaproject3d@gmail.com</a></div>
+    </div>
+    <div class="social">
+      <a href="#produkty">Produkty</a>
+      <a href="#kontakt">Kontakt</a>
+      <a href="https://www.instagram.com/lukaproject3d/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/people/Lukaproject3d/61583206063400/" target="_blank" rel="noopener">Facebook</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Lightbox (pełny ekran) -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lbX" id="lbCloseBtn" aria-label="Zamknij">✕</button>
+  <div class="lbImgWrap" id="lbBackdrop">
+    <img id="lbImg" src="" alt="Podgląd" />
+  </div>
+</div>
+
+<script>
+  document.getElementById('y').textContent = new Date().getFullYear();
+
+  function scrollToId(id){
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  // Klik miniatury -> podmiana zdjęcia głównego w kafelku
+  document.querySelectorAll('.card.p').forEach(card => {
+    const cover = card.querySelector('.pCover');
+    const coverImg = cover ? cover.querySelector('img') : null;
+    const title = cover ? (cover.getAttribute('data-title') || 'Zdjęcie') : 'Zdjęcie';
+    const thumbs = card.querySelectorAll('.thumb[data-target]');
+
+    if(thumbs.length && coverImg){
+      thumbs.forEach(t => {
+        t.addEventListener('click', () => {
+          const target = t.getAttribute('data-target');
+          if(!target) return;
+          coverImg.src = target;
+          card.querySelectorAll('.thumb').forEach(x => x.classList.remove('isActive'));
+          t.classList.add('isActive');
+        });
+      });
+    }
+
+    // Klik na cover -> lightbox (przydatne na telefonie, bo nie ma hover)
+    if(cover && coverImg){
+      cover.addEventListener('click', () => {
+        lbOpen(coverImg.src);
+      });
+    }
+  });
+
+  function lbOpen(src){
+    const lb = document.getElementById('lightbox');
+    const img = document.getElementById('lbImg');
+    img.src = src;
+    lb.classList.add('open');
+    lb.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function lbClose(){
+    const lb = document.getElementById('lightbox');
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+    document.getElementById('lbImg').src = '';
+  }
+
+  // Zamknięcie: X i klik w tło
+  document.getElementById('lbCloseBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    lbClose();
+  });
+  document.getElementById('lbBackdrop').addEventListener('click', () => lbClose());
+  document.getElementById('lbImg').addEventListener('click', (e)=> e.stopPropagation());
+
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') lbClose();
+  });
+
+  function sendMail(e){
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const topic = document.getElementById('topic').value.trim();
+    const msg = document.getElementById('msg').value.trim();
+
+    const to = 'lukaproject3d@gmail.com';
+    const subject = encodeURIComponent(`[LukaProject3D] ${topic} – ${name}`);
+    const body = encodeURIComponent(`Imię: ${name}
+
+Temat: ${topic}
+
+Wiadomość:
+${msg}
+
+Linki: Instagram https://www.instagram.com/lukaproject3d/ | Facebook https://www.facebook.com/people/Lukaproject3d/61583206063400/`);
+    window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+    return false;
+  }
+</script>
+</body>
+</html>
+
+
